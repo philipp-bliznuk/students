@@ -1,0 +1,47 @@
+{% load tags static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=970">
+    <meta name="description" content="">
+    <meta name="author" content="Bliznuk Philipp">
+    <title>Students | {% block title %}{% endblock title %}</title>
+    <link href='{% static 'css/bootstrap.css' %}' rel='stylesheet' type='text/css'>
+
+    {% block extrahead %}{% endblock extrahead %}
+  </head>
+  <body>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="panel-body bg-info">
+          <p class="col-md-12 text-right">
+            {% if request.user.is_authenticated %}
+              Hello {% edit_list request.user %}, <a href="{% url 'auth_logout' %}">Logout</a>
+            {% else %}
+              <a href="{% url 'auth_login' %}">Login</a>
+            {% endif %}
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <p class="col-md-12 text-center">
+        <a href="{% url 'students:students_list' %}">Students</a> |
+        <a href="{% url 'groups:groups_list' %}">Groups</a>
+      </p>
+    </div>
+
+    {% block content %}{% endblock content %}
+    {% block extra_html %}{% endblock %}
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+  </div>
+  </body>
+</html>

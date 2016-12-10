@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Groups list{% endblock %}
+
+{% block content %}
+
+<p><a href="{% url 'groups:group_create' %}">Create new group</a></p>
+
+<table class="table table-striped">
+  <tr>
+    <th>Group name</th>
+    <th>Warden</th>
+    <th>Students count</th>
+    <th>Action</th>
+  </tr>
+  {% for group in groups %}
+  <tr>
+    <td><a href="{% url 'groups:group_students' group.id %}">{{ group.name }}</a></td>
+    <td>{{ group.warden.name }}</td>
+    <td>{{ group.students_count }}</td>
+    <td>
+      <a href="{% url 'groups:group_edit' group.id %}">Edit</a>
+      /
+      <a href="{% url 'groups:group_delete' group.id %}" onclick="document.getElementById({{ group.id }}).submit(); return false;">Delete</a>
+      <form id="{{ group.id }}" action="{% url 'groups:group_delete' group.id %}" method="post">{% csrf_token %}</form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

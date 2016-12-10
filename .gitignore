@@ -1,0 +1,7 @@
+*.pyc
+*.map
+*.mo
+*.DS_Store
+.idea/*
+database.db
+local_settings.py

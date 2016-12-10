@@ -1,0 +1,9 @@
+# Base
+Django==1.6
+django-braces==1.4.0
+
+# Admin
+yawd-admin==0.7.0
+oauth2client==1.4.12
+
+Fabric==1.11.1

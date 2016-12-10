@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Students list{% endblock %}
+
+{% block content %}
+
+<p><a href="{% url 'students:student_create' %}">Create new student</a></p>
+
+<table class="table table-striped">
+  <tr>
+    <th>Student name</th>
+    <th>Group</th>
+    <th>Birth date</th>
+    <th>Ticket number</th>
+    <th>Action</th>
+  </tr>
+  {% for student in students %}
+  <tr>
+    <td>{{ student.name }}</td>
+    <td>{{ student.group }}</td>
+    <td>{{ student.birth_date }}</td>
+    <td>{{ student.ticket_number }}</td>
+    <td>
+      <a href="{% url 'students:student_edit' student.id %}">Edit</a>
+      /
+      <a href="{% url 'students:student_delete' student.id %}" onclick="document.getElementById({{ student.id }}).submit(); return false;">Delete</a>
+      <form id="{{ student.id }}" action="{% url 'students:student_delete' student.id %}" method="post">{% csrf_token %}</form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}
